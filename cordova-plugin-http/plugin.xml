@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="cordova-plugin-http"
+  version="1.0.0">
+
+    <name>cordovaHTTP</name>
+ 
+    <description>
+        Cordova / Phonegap plugin for communicating with HTTP servers using SSL pinning
+	</description>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <dependency id="cordova-plugin-file" version=">=2.0.0" />
+
+    <js-module src="www/cordovaHTTP.js" name="CordovaHttpPlugin">
+        <clobbers target="CordovaHttpPlugin" />
+    </js-module>
+
+
+    <!--android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CordovaHttpPlugin">
+                <param name="android-package" value="com.synconset.CordovaHttpPlugin"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+        
+        <source-file src="src/android/CordovaHttp.java" target-dir="src/com/gentle/exview/plugins" />
+        <source-file src="src/android/CordovaHttpGet.java" target-dir="src/com/gentle/exview/plugins" />
+        <source-file src="src/android/CordovaHttpPost.java" target-dir="src/com/gentle/exview/plugins" />
+<source-file src="src/android/CordovaHttpPostJson.java" target-dir="src/com/gentle/exview/plugins" />
+		<source-file src="src/android/CordovaHttpHead.java" target-dir="src/com/gentle/exview/plugins" />
+        <source-file src="src/android/CordovaHttpUpload.java" target-dir="src/com/gentle/exview/plugins" />
+        <source-file src="src/android/CordovaHttpDownload.java" target-dir="src/com/gentle/exview/plugins" />
+        <source-file src="src/android/CordovaHttpPlugin.java" target-dir="src/com/gentle/exview/plugins" />
+        <source-file src="src/android/HttpRequest.java" target-dir="src/com/gentle/exview/plugins" />
+    </platform>
+</plugin>

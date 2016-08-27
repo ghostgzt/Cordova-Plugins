@@ -1,0 +1,18 @@
+{
+    "version": "1.0.0",
+    "name": "com.gentle.exview.plugins.inappbrowserxwalk",
+    "cordova_name": "InAppBrowser Crosswalk",
+    "keywords": [
+			"ecosystem:cordova",
+			"cordova-android"
+        ],
+    "platforms": [
+        "android"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.4.0"
+        }
+    ]
+}
