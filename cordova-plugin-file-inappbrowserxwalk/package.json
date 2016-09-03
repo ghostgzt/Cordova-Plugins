@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "name": "com.gentle.exview.plugins.inappbrowserxwalk",
+    "name": "cordova-plugin-file-inappbrowserxwalk",
     "cordova_name": "InAppBrowser Crosswalk",
     "keywords": [
 			"ecosystem:cordova",
