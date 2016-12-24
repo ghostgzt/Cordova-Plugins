@@ -39,7 +39,7 @@ public class CordovaHttpUpload extends CordovaHttp implements Runnable {
         try {
             HttpRequest request = HttpRequest.post(this.getUrlString());
             this.setupSecurity(request);
-            request.acceptCharset(this.getcharset());
+           // request.acceptCharset(this.getcharset());
             request.headers(this.getHeaders());
             URI uri = new URI(filePath);
             int index = filePath.lastIndexOf('/');
