@@ -1,4 +1,3 @@
-cordova.define("cordova-plugin-http.CordovaHttpPlugin", function(require, exports, module) {
 /*global angular*/
 
 /*
@@ -180,5 +179,3 @@ postJson: function(url, json, headers,charset) {
 } else {
     window.cordovaHTTP = http;
 }
-
-});
