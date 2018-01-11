@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.graphics.Color;
 public class FullScreenPlugin extends CordovaPlugin
 {
 	public static final String ACTION_IS_SUPPORTED = "isSupported";
@@ -208,10 +209,66 @@ public class FullScreenPlugin extends CordovaPlugin
 				try
 				{
 					resetWindow();
-			        
+					window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		//透明状态栏
+		try {
+			window.requestFeature(Window.FEATURE_NO_TITLE);
+		} catch (Exception e) {
+			// 可忽略的异常
+			//LogUtil.i(TAG, "======");
+		}
+		try {
+			window.clearFlags
+					(
+							WindowManager.LayoutParams.FLAG_FULLSCREEN
+									| WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+									| WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+					);
+		} catch (Exception e) {
+			System.out.print("Error:FLAG_TRANSLUCENT_STATUS|FLAG_TRANSLUCENT_NAVIGATION");
+		}
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+           // Window window = getWindow();
+
+			try {
+				//window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+				decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+								//| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+								| View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+			} catch (Exception e) {
+				System.out.print("Error:SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN|SYSTEM_UI_FLAG_LAYOUT_STABLE");
+			}
+			try {
+				window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+			} catch (Exception e) {
+				System.out.print("Error:FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS");
+			}
+			try {
+				window.setStatusBarColor(Color.TRANSPARENT);
+			} catch (Exception e) {
+				System.out.print("Error:TRANSPARENT");
+			}
+            /* window.setNavigationBarColor(Color.TRANSPARENT);   */
+        }else{
+			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+				try {
+					window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+				} catch (Exception e) {
+					System.out.print("Error:FLAG_TRANSLUCENT_STATUS");
+				}
+			}
+
+
+				// Update system UI
+
+				decorView.setOnSystemUiVisibilityChangeListener(null);
+				decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+
+		}								        
 					// Remove translucent theme from bars
 					
-					window.clearFlags
+					/* window.clearFlags
 					(
 						WindowManager.LayoutParams.FLAG_FULLSCREEN 
 						| WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION 
@@ -221,7 +278,7 @@ public class FullScreenPlugin extends CordovaPlugin
 			        // Update system UI
 					
 					decorView.setOnSystemUiVisibilityChangeListener(null);
-					decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+					decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE); */
 					
 					PluginResult res = new PluginResult(PluginResult.Status.OK, true);
 			        context.sendPluginResult(res);
@@ -346,8 +403,8 @@ public class FullScreenPlugin extends CordovaPlugin
 				try
 				{
 					resetWindow();
-					
-					final int uiOptions = 
+
+ 					final int uiOptions = 
 						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 						| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 						| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -377,7 +434,7 @@ public class FullScreenPlugin extends CordovaPlugin
 						{
 							decorView.setSystemUiVisibility(uiOptions);
 						}
-					});
+					}); 
 					
 					context.success();
 				}
